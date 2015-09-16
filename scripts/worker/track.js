@@ -44,6 +44,7 @@ Track.prototype.advancePattern = function(first_argument) {
   this.patternIndex++;
   if (this.patternIndex === this.patternsLength) {
     this.patternIndex = 0;
+    console.log('\n');
   }
 
   var nextPattern = this.patterns[this.patternIndex];
