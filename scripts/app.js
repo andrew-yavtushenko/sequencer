@@ -56,19 +56,23 @@ define('app', [
   }
 
   function startTrack (event) {
-    dispatcher.play(trackId, function () {
-      isPlaying = true;
-      console.profile('machine');
-    });
+    if (!isPlaying) {
+      dispatcher.play(trackId, function () {
+        isPlaying = true;
+        console.profile('machine');
+      });
+    }
     event.preventDefault();
     event.stopPropagation();
   }
 
   function stopTrack (event) {
-    dispatcher.stop(trackId, function (){
-      isPlaying = false;
-      console.profileEnd('machine');
-    });
+    if (isPlaying) {
+      dispatcher.stop(trackId, function (){
+        isPlaying = false;
+        console.profileEnd('machine');
+      });
+    }
     event.preventDefault();
     event.stopPropagation();
   }
