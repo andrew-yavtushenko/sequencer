@@ -27,6 +27,7 @@ Line.prototype.advanceNote = function () {
 
 Line.prototype.check = function (currentTime, startTime, patternId, lineId) {
   if (this.noteTime <= currentTime + this.threshold) { //threshold
+    console.log(this.rhythmIndex);
     var contextPlayTime = this.noteTime + startTime;
     play(this.notes[this.rhythmIndex].bufferIdx, 0.5, this.notes[this.rhythmIndex].volume, 1, contextPlayTime/1000, patternId, lineId, this.rhythmIndex);
     this.advanceNote();

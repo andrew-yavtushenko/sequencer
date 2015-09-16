@@ -41,7 +41,6 @@ Track.prototype.createPattern = function (beat, noteValue) {
 };
 
 Track.prototype.advancePattern = function(first_argument) {
-  console.log(this.patternIndex);
   this.patternIndex++;
   if (this.patternIndex === this.patternsLength) {
     this.patternIndex = 0;
