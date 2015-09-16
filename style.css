@@ -1,0 +1,199 @@
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+
+body {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+
+
+.pattern-lines {
+  margin-top: 1em;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+ul li {
+  display: inline-block;
+}
+
+
+ul#track-patterns.patterns {
+  white-space: nowrap;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid #666;
+  padding: 20px;
+  max-width: 100%;
+  display: block;
+}
+
+.patterns >li {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.patterns .row .col {
+  float: left;
+  width: 150px;
+  padding: 0 15px;
+}
+
+.container {
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.lines {
+  padding: 0;
+}
+
+.line {
+  white-space: nowrap;
+  position: relative;
+  display: block;
+}
+
+.notes li {
+  background-color: #ccc;
+  display: inline-block;
+  height: 60px;
+  list-style: none;
+  margin-left: 0;
+  box-shadow: #fff 0 0 0 2px inset;
+  content: ' ';
+  position: relative;
+  text-align: center;
+  font-size: 8px;
+  line-height: 20px;
+  vertical-align: middle;
+  -webkit-transition: background-color 20ms linear;
+  transition: background-color 20ms linear;
+}
+
+.notes li[data-note-volume='0'] {
+  background-color: #ccc;
+}
+
+.notes li[data-note-volume='0.6'] {
+  background-color: #faa740;
+}
+
+.notes li[data-note-volume='1'] {
+  background-color: #ee6453;
+}
+
+.notes li[data-is-on='true'] {
+  background-color: #4cb748;
+  transition: background-color 0ms linear;
+}
+
+.notes li.subdivision-1 {
+  width: 960px;
+}
+
+.notes li.subdivision-2 {
+  width: 480px;
+}
+
+.notes li.subdivision-4 {
+  width: 240px;
+}
+
+.notes li.subdivision-8 {
+  width: 120px;
+}
+
+.notes li.subdivision-12 {
+  width: 80px;
+}
+
+.notes li.subdivision-16 {
+  width: 60px;
+}
+
+.notes li.subdivision-24 {
+  width: 40px;
+}
+
+.notes li.subdivision-32 {
+  width: 30px;
+}
+
+.notes li.subdivision-48 {
+  width: 20px;
+}
+
+.notes li.subdivision-64 {
+  width: 15px;
+}
+
+.line-title {
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+input[type=range] {
+  width: 240px;
+}
+
+.tempo-wrapper {
+  margin-bottom: 1em;
+}
+
+ul {
+  display: inline-block;
+}
+
+ul#track-patterns.patterns,
+#current-track,
+.line-template,
+.pattern-template,
+.note-template {
+  display: none;
+}
+
+#beat, #noteValue {
+  width: 100%;
+}
+
+.play-buttons {
+  display: none;
+  margin-left: 20px;
+  margin-top: 1.6em;
+}
+
+.play-buttons a {
+  display: inline-block;
+
+}
+.clear {
+  clear: both;
+}
+
+h1, .play-buttons {
+  float: left;
+}
+
+.preloading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255, 0.7);
+  z-index: 10000;
+  background-image: url('./spinner.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+}

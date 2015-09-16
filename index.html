@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script data-main="scripts/app" src="./scripts/require.js"></script>
+  <!--  <script src="./scripts/lodash.min.js"></script>
+  <script src="./scripts/jquery-1.11.3.min.js"></script>
+  <script src="./line.js"></script>
+  <script src="./ui.js"></script>
+  <script src="./note.js"></script>
+  <script src="./script.js"></script>
+ Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="preloading"></div>
+  <div class="note-template">
+    <li data-note-volume
+        data-note-id
+        data-line-id></li>
+  </div>
+  <div class="line-template">
+    <li class='line'>
+      <ul class='notes'></ul>
+    </li>
+  </div>
+  <div class="pattern-template">
+    <li ng-repeat='pattern in track.patterns'>
+      <h5>
+        <span class="pattern-index"></span>
+        <span class="pattern-configuration"></span>
+        <a href="#" class="delete-pattern">&times;</a>
+      </h5>
+      <div class="row">
+        <div class='col'>
+          <select class='form-control subDivision' name='subDivision'>
+          </select>
+        </div>
+        <div class='col'>
+          <select class='form-control audio' name='audio'></select>
+        </div>
+        <div class='col'>
+          <a href="#" class='btn btn-default add-line'>Add Line</a>
+        </div>
+      </div>
+      <ul class='list-unstyled pattern-lines'>
+      </ul>
+    </li>
+  </div>
+  <div class="container">
+    <div class="hero-unit">
+      <h1>
+        Drum sequencer
+      </h1>
+      <div class="play-buttons">
+        <a href="#" id="start" class="btn btn-primary">start</a>
+        <a href="#" id="stop" class="btn btn-danger">stop</a>
+      </div>
+      <div class="clear"></div>
+      <div class="tempo-wrapper">
+        <h3>Bpm:
+          <span></span>
+        </h3>
+        <input id="tempo" type='range' min=40 max=300 step=2 value=120 />
+      </div>
+    </div>
+      <div class="row" id="new-track-form">
+        <div class='col-xs-2'>
+          <input class='form-control track-name' type="text" placeholder='New track name'>
+        </div>
+        <div class='col-xs-2'>
+          <a href="#" class='btn btn-default'>Create track</a>
+        </div>
+      </div>
+      <div id="current-track">
+        <h3></h3>
+        <form id="new-pattern-form" class='form-inline row'>
+          <div class='col-xs-2'>
+            <select class='form-control' name='beat' id='beat'>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+            </select>  
+          </div>
+          <div class='col-xs-2'>
+            <select class='form-control' name='noteValue' id='noteValue'>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="4" selected>4</option>
+              <option value="8">8</option>
+              <option value="16">16</option>
+            </select>
+          </div>
+          <div class="col-xs-2">
+            <a href="#" class="btn btn-default create">Add pattern</a>
+          </div>
+        </form>
+      </div>
+      <ul class='list-unstyled tracks'>
+        <li ng-repeat='track in tracks'>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ul id="track-patterns" class='list-unstyled patterns'>
+  </ul>
+</body>
+</html>
