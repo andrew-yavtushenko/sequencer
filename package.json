@@ -1,0 +1,32 @@
+{
+  "name": "sequencer",
+  "version": "0.1.0",
+  "devDependencies": {
+    "connect": "^3.4.0",
+    "connect-livereload": "^0.5.3",
+    "grunt": "^0.4.5",
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "serve-static": "^1.10.0"
+  },
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt-contrib-connect": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrew-yavtushenko/sequencer.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrew-yavtushenko/sequencer/issues"
+  },
+  "homepage": "https://github.com/andrew-yavtushenko/sequencer"
+}

@@ -40,20 +40,19 @@ Track.prototype.createPattern = function (beat, noteValue) {
   }
 };
 
-Track.prototype.advancePattern = function(first_argument) {
+Track.prototype.advancePattern = function() {
+  var currentPattern = this.patterns[this.patternIndex];
+  var currentPatternTime = timing.pattern(currentPattern.beat, currentPattern.noteValue);
+
   this.patternIndex++;
   if (this.patternIndex === this.patternsLength) {
     this.patternIndex = 0;
-    console.log('\n');
   }
 
   var nextPattern = this.patterns[this.patternIndex];
 
-  var nextPatternTime = timing.pattern(nextPattern.beat, nextPattern.noteValue);
-
-  nextPattern.updateLinesTime(nextPatternTime);
-
-  this.patternTime += nextPatternTime;
+  this.patternTime += currentPatternTime;
+  nextPattern.setLinesTime(this.patternTime);
 };
 
 

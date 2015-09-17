@@ -44,9 +44,9 @@ Pattern.prototype.check = function(currentTime, startTime) {
   }
 };
 
-Pattern.prototype.updateLinesTime = function(time) {
+Pattern.prototype.setLinesTime = function(time) {
   for (var i = 0, il = this.lines.length; i < il; i++) {
-    this.lines[i].updateTime(time);
+    this.lines[i].setTime(time);
   }
 };
 
