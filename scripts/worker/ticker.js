@@ -21,17 +21,16 @@ function getTicker () {
     currentTrack.isPlaying = false;
 
     inProgress = false;
-    console.profileEnd("worker");
+    // console.profileEnd("worker");
   }
 
   function play (track) {
-    console.profile("worker");
+    // console.profile("worker");
     currentTrack = track;
     currentTrack.reset();
     currentTrack.isPlaying = true;
     inProgress = true;
     startTime = timing.current() + 0.005;
-    schedule();
     intervalId = setInterval(schedule, 0);
   }
 

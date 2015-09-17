@@ -15,6 +15,7 @@ define('app', [
     dispatcher,
     settings
   ) {
+  window.tempo = tempo;
   tempo.set(120);
   var isLocked = true;
   var isPlaying = false;
@@ -59,7 +60,7 @@ define('app', [
     if (!isPlaying) {
       dispatcher.play(trackId, function () {
         isPlaying = true;
-        console.profile('machine');
+        // console.profile('machine');
       });
     }
     event.preventDefault();
@@ -70,7 +71,7 @@ define('app', [
     if (isPlaying) {
       dispatcher.stop(trackId, function (){
         isPlaying = false;
-        console.profileEnd('machine');
+        // console.profileEnd('machine');
       });
     }
     event.preventDefault();
