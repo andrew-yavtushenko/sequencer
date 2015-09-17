@@ -33,7 +33,7 @@ Line.prototype.check = function (currentTime, startTime, patternId, lineId) {
   if (this.noteTime <= currentTime + this.threshold) { //threshold
     var contextPlayTime = this.noteTime + startTime;
 
-    play(this.notes[this.rhythmIndex].bufferIdx, 0.5, this.notes[this.rhythmIndex].volume, 1, contextPlayTime/1000, patternId, lineId, this.rhythmIndex);
+    play(this.notes[this.rhythmIndex].bufferIdx, 0.5, this.notes[this.rhythmIndex].volume, 1, 0, patternId, lineId, this.rhythmIndex);
     this.advanceNote();
   }
 };
