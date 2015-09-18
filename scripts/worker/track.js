@@ -43,6 +43,8 @@ Track.prototype.createPattern = function (beat, noteValue) {
 
 Track.prototype.shiftNextPattern = function() {
   if (this.patternsLength > 1) {
+    var oldTimeLeftToPlay = this.patternTime - this.currentTime;
+    console.log(this.patternTime - this.currentTime);
     var currentPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
 
     var currentPattern = this.patterns[currentPatternIndex];
@@ -50,6 +52,10 @@ Track.prototype.shiftNextPattern = function() {
 
     var newTime = timing.pattern(currentPattern.beat, currentPattern.noteValue);
     var newPatternTime = this.patternTime - this.currentPatternDuration + newTime;
+
+    var newTimeLeftToPlay = (newTime - this.currentTime);
+
+    console.log(oldTimeLeftToPlay, newTimeLeftToPlay);
 
     // console.log('shift', this.currentPatternDuration - newTime);
     // console.log('this.patternTime before shift', this.patternTime);
@@ -80,6 +86,7 @@ Track.prototype.advancePattern = function() {
 
 
 Track.prototype.play = function(currentTime, startTime) {
+  this.currentTime = currentTime;
   if (this.patternTime <= currentTime + 0.200) {
 
     // console.log('freezeCheck', this.patternIndex, prevPatternIndex);
@@ -92,7 +99,7 @@ Track.prototype.play = function(currentTime, startTime) {
     this.currentPattern = this.patterns[this.patternIndex];
 
     // console.log('patternTime', this.patternTime, currentTime);
-    
+
     this.currentPattern.play();
 
     if (this.patternsLength > 1) {

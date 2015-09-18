@@ -11,7 +11,7 @@ function buildLineNotes (pattern, bufferIdx, subDivision) {
     var correctNote;
     if (pattern.beat * subDivision % pattern.noteValue !== 0 &&
         ++key * subDivision > Math.floor(pattern.beat * subDivision / pattern.noteValue) * subDivision) {
-      correctNote = _.find(pattern.availableSubDivisions, function (availableSubDivision) {
+      correctNote = pattern.availableSubDivisions.find(function (availableSubDivision) {
         if (availableSubDivision === subDivision * 2) return availableSubDivision;
       });
     } else {

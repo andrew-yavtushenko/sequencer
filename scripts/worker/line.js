@@ -26,14 +26,14 @@ Line.prototype.play = function() {
   this.isPlaying = true;
 };
 
-Line.prototype.stop = function() {
+Line.prototype.stop = function(num) {
+  // if (num) console.log(this.currentTime, this.noteTime);
   this.rhythmIndex = 0;
   this.isPlaying = false;
 };
 
 Line.prototype.advanceNote = function () {
   this.rhythmIndex++;
-
   if (this.rhythmIndex === this.loopLength) {
     this.stop();
   }
@@ -42,7 +42,12 @@ Line.prototype.advanceNote = function () {
 };
 
 Line.prototype.check = function (currentTime, startTime, patternId, lineId) {
-  if (this.isPlaying && this.noteTime <= currentTime + this.threshold) { //threshold
+  this.currentTime = currentTime;
+  if (this.isPlaying && this.noteTime <= currentTime + this.threshold) {
+    // if (this.rhythmIndex + 1 === this.loopLength) {
+    //   var timeout = timing.note(this.notes[this.rhythmIndex].value);
+    //   setTimeout(function() {console.log('end of story', currentTime)}, timeout);
+    // }
     // if (this.notes[this.rhythmIndex].volume) console.log('Line.prototype.check', this.noteTime, currentTime);
     play(this.notes[this.rhythmIndex].bufferIdx, 0.5, this.notes[this.rhythmIndex].volume, 1, 0, patternId, lineId, this.rhythmIndex);
     this.advanceNote();

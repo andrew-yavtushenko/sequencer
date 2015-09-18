@@ -1,7 +1,7 @@
 var tempo = 120;
 
 function getNow () {
-  return Date.now();
+  return Date.now()|0;
 }
 
 var timing = {
