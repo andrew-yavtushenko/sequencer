@@ -5,6 +5,7 @@ function Track (name) {
   this.isPlaying = false;
   this.patternIndex = 0;
   this.currentPatternDuration = 0;
+  this.currentTime = 0;
   this.patternsLength = 0;
   this.patternTime = 0;
   this.patterns = [];
@@ -41,25 +42,23 @@ Track.prototype.createPattern = function (beat, noteValue) {
   }
 };
 
+Track.prototype.getShift = function(newTime) {
+  var relativeTimestamp = this.patternEllapsedTime / this.currentPatternDuration;
+  var absoluteTimestampNew = newTime * relativeTimestamp;
+  var shift = newTime - absoluteTimestampNew + this.patternEllapsedTime;
+  return shift;
+};
+
 Track.prototype.shiftNextPattern = function() {
   if (this.patternsLength > 1) {
     var oldTimeLeftToPlay = this.patternTime - this.currentTime;
-    console.log(this.patternTime - this.currentTime);
     var currentPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
 
     var currentPattern = this.patterns[currentPatternIndex];
     var nextPattern = this.patterns[this.patternIndex];
 
-    var newTime = timing.pattern(currentPattern.beat, currentPattern.noteValue);
+    var newTime = this.getShift(timing.pattern(currentPattern.beat, currentPattern.noteValue));
     var newPatternTime = this.patternTime - this.currentPatternDuration + newTime;
-
-    var newTimeLeftToPlay = (newTime - this.currentTime);
-
-    console.log(oldTimeLeftToPlay, newTimeLeftToPlay);
-
-    // console.log('shift', this.currentPatternDuration - newTime);
-    // console.log('this.patternTime before shift', this.patternTime);
-    // console.log('newPatternTime after shift', newPatternTime);
 
     this.patternTime = newPatternTime;
     this.currentPatternDuration = newTime;
@@ -69,7 +68,6 @@ Track.prototype.shiftNextPattern = function() {
 
 Track.prototype.advancePattern = function() {
   this.prevPattern.stop();
-  // console.log(this.patternTime);
   this.currentPatternDuration = timing.pattern(this.currentPattern.beat, this.currentPattern.noteValue);
 
   this.patternIndex++;
@@ -87,18 +85,14 @@ Track.prototype.advancePattern = function() {
 
 Track.prototype.play = function(currentTime, startTime) {
   this.currentTime = currentTime;
-  if (this.patternTime <= currentTime + 0.200) {
+  this.patternEllapsedTime = this.currentTime - this.patternTime + this.currentPatternDuration;
 
-    // console.log('freezeCheck', this.patternIndex, prevPatternIndex);
-    // console.log('this.currentPattern.id', this.currentPattern.id);
-    // console.log('this.patternTime play', this.patternTime)
+  if (this.patternTime <= currentTime + 0.200) {
 
     this.prevPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
 
     this.prevPattern = this.patterns[this.prevPatternIndex];
     this.currentPattern = this.patterns[this.patternIndex];
-
-    // console.log('patternTime', this.patternTime, currentTime);
 
     this.currentPattern.play();
 
