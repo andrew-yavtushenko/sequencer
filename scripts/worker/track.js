@@ -149,8 +149,8 @@ Track.prototype.getPattern = function(patternId) {
 Track.prototype.reset = function() {
   this.patternTime = 0.0;
   this.patternIndex = 0;
-  for (var patternIdx in this.patterns) {
-    this.patterns[patternIdx].reset();
+  for (var i = 0, il = this.patterns.length; i < il; i++) {
+    this.patterns[i].reset();
   }
 
 };
