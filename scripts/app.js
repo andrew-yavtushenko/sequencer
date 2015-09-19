@@ -23,6 +23,14 @@ define('app', [
   var currentTrack = null;
   var trackId;
 
+  $("#meh button").on('click', function () {
+    window.unlock('#meh');
+  })
+
+  window.showMeh = function () {
+    $("#meh").show();
+  }
+
 
   buffers.loadAll(function () {
     var loadedBuffers = buffers.get();

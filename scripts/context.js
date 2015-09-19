@@ -4,12 +4,18 @@ define('context', [], function  () {
   window.context = context;
   var isUnlocked = false;
 
-  function unlock () {
+   window.unlock = function (reason) {
+    console.log('reason', reason);
     var buffer = context.createBuffer(1, 1, 22050);
     var source = context.createBufferSource();
     source.buffer = buffer;
     source.connect(context.destination);
+
+    source.onended = function () {
+      console.log("source.onended", arguments)
+    }
     source.start(0);
+
 
     setTimeout(function () {
       if (source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE) {
