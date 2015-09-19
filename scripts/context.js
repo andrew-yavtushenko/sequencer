@@ -21,12 +21,10 @@ define('context', [], function  () {
       if (source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE) {
         isUnlocked = true;
       }
-      window.removeEventListener('click', unlock, true);
       window.removeEventListener('touchstart', unlock, true);
 
     }, 10);
   }
-  window.addEventListener('click', unlock, true);
   window.addEventListener('touchstart', unlock, true);
 
   return context;

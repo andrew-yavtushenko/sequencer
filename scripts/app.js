@@ -146,6 +146,7 @@ define('app', [
   });
 
   $("#new-pattern-form .create").on('click', function (event) {
+    window.unlock();
     var newTrackBeat = parseInt.call(this, $("#new-pattern-form #beat").val());
     var newTrackNoteValue = parseInt.call(this, $("#new-pattern-form #noteValue").val());
 
