@@ -106,9 +106,10 @@ Track.prototype.advancePattern = function() {
 
 
 
-Track.prototype.play = function(currentTime, startTime) {
+Track.prototype.play = function(currentTime) {
   this.currentTime = currentTime;
-  this.patternEllapsedTime = this.currentTime - this.patternTime + this.currentPatternDuration;
+
+  this.patternEllapsedTime = currentTime - this.patternTime + this.currentPatternDuration;
 
   if (this.patternTime <= currentTime + 0.200) {
 
@@ -123,7 +124,7 @@ Track.prototype.play = function(currentTime, startTime) {
       this.advancePattern();
     }
   }
-  this.currentPattern.check(currentTime, startTime);
+  this.currentPattern.check(currentTime);
 };
 
 Track.prototype.deletePattern = function(patternId) {

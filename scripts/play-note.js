@@ -18,33 +18,30 @@ define('play-note', ['context', 'buffers', 'blink'], function (context, buffers,
   convolver = context.createConvolver();
   convolver.connect(effectLevelNode);
 
-  function play (bufferId, sendGain, mainGain, playbackRate, noteTime, patternId, lineId, noteId) {
-    if (mainGain !== 0) {
-      blink(patternId, lineId, noteId, mainGain);
-      var voice = context.createBufferSource();
-      voice.buffer = buffers.get()[bufferId];
-      voice.playbackRate.value = playbackRate;
+  function play (bufferId, gain, patternId, lineId, noteId) {
+    blink(patternId, lineId, noteId, gain);
+    var voice = context.createBufferSource();
+    voice.buffer = buffers.get()[bufferId];
 
-      // Connect to dry mix
-      var dryGainNode = context.createGain();
-      dryGainNode.gain.value = mainGain * effectDryMix;
-      voice.connect(dryGainNode);
-      dryGainNode.connect(masterGainNode);
+    // Connect to dry mix
+    var dryGainNode = context.createGain();
+    dryGainNode.gain.value = gain * effectDryMix;
+    voice.connect(dryGainNode);
+    dryGainNode.connect(masterGainNode);
 
-      // Connect to wet mix
-      var wetGainNode = context.createGain();
-      wetGainNode.gain.value = mainGain;
-      // wetGainNode.gain.value = gain * effectDryMix; FF doesn't work correctly with sendGain
-      voice.connect(wetGainNode);
-      wetGainNode.connect(convolver);
+    // Connect to wet mix
+    var wetGainNode = context.createGain();
+    wetGainNode.gain.value = gain;
+    // wetGainNode.gain.value = gain * effectDryMix; FF doesn't work correctly with sendGain
+    voice.connect(wetGainNode);
+    wetGainNode.connect(convolver);
 
 
-      if (!voice.start) {
-        voice.start = voice.noteOn;
-      }
-
-      voice.start(noteTime);
+    if (!voice.start) {
+      voice.start = voice.noteOn;
     }
+
+    voice.start(0);
   }
   return play;
 });

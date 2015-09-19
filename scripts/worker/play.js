@@ -1,3 +1,3 @@
-function play (bufferIdx, sendGain, mainGain, playbackRate, noteTime, patternId, lineId, noteId) {
-  postMessage(['play-note', bufferIdx, sendGain, mainGain, playbackRate, noteTime, patternId, lineId, noteId]);
+function play (bufferIdx, gain, patternId, lineId, noteId) {
+  if (gain > 0) postMessage(['play-note', bufferIdx, gain, patternId, lineId, noteId]);
 }

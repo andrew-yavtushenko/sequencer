@@ -55,15 +55,11 @@ Line.prototype.advanceNote = function () {
   this.updateTime(noteTime);
 };
 
-Line.prototype.check = function (currentTime, startTime, patternId, lineId) {
+Line.prototype.check = function (currentTime, patternId, lineId) {
   this.currentTime = currentTime;
   if (this.isPlaying && this.noteTime <= currentTime + this.threshold) {
-    // if (this.rhythmIndex + 1 === this.loopLength) {
-    //   var timeout = timing.note(this.notes[this.rhythmIndex].value);
-    //   setTimeout(function() {console.log('end of story', currentTime)}, timeout);
-    // }
-    // if (this.notes[this.rhythmIndex].volume) console.log('Line.prototype.check', this.noteTime, currentTime);
-    play(this.notes[this.rhythmIndex].bufferIdx, 0.5, this.notes[this.rhythmIndex].volume, 1, 0, patternId, lineId, this.rhythmIndex);
+    if (this.rhythmIndex === 0) console.log(currentTime, this.noteTime);
+    play(this.notes[this.rhythmIndex].bufferIdx, this.notes[this.rhythmIndex].volume, patternId, lineId, this.rhythmIndex);
     this.advanceNote();
   }
 };

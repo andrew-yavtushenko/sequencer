@@ -39,9 +39,9 @@ function Pattern (properties) {
   return this;
 }
 
-Pattern.prototype.check = function(currentTime, startTime) {
+Pattern.prototype.check = function(currentTime) {
   for (var i = 0, il = this.lines.length; i < il; i++) {
-    this.lines[i].check(currentTime, startTime, this.id, i);
+    this.lines[i].check(currentTime, this.id, i);
   }
 };
 
