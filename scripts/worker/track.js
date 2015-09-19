@@ -66,15 +66,14 @@ Track.prototype.createPattern = function (beat, noteValue) {
 };
 
 Track.prototype.getShift = function(newTime) {
-  var relativeTimestamp = this.patternEllapsedTime / this.currentPatternDuration;
-  var absoluteTimestampNew = newTime * relativeTimestamp;
+  var relativeTimestamp = (this.patternEllapsedTime / this.currentPatternDuration) | 0;
+  var absoluteTimestampNew = (newTime * relativeTimestamp) | 0;
   var shift = newTime - absoluteTimestampNew + this.patternEllapsedTime;
   return shift;
 };
 
 Track.prototype.shiftNextPattern = function() {
   if (this.patternsLength > 1) {
-    var oldTimeLeftToPlay = this.patternTime - this.currentTime;
     var currentPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
 
     var currentPattern = this.patterns[currentPatternIndex];

@@ -1,7 +1,9 @@
 var tempo = 120;
 
+var perf = performance
+
 function getNow () {
-  return Date.now()|0;
+  return perf.now()|0;
 }
 
 var timing = {
