@@ -11,6 +11,20 @@ Line.prototype.updateLoopLength = function (loopLength) {
   this.loopLength = loopLength;
 };
 
+Line.prototype.updateVolume = function(noteIdx) {
+  function changeNoteVolume(volume) {
+    if (volume === 0) {
+      return 0.6;
+    } else if (volume === 0.6) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  this.notes[noteIdx].volume = changeNoteVolume(this.notes[noteIdx].volume)
+};
+
 
 Line.prototype.updateTime = function (time) {
   this.noteTime += time;

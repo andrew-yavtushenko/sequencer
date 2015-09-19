@@ -49,6 +49,10 @@ define('dispatcher', ['play-note'], function (playNote){
     worker.postMessage(['init', callbackId]);
   }
 
+  function getPattern (patternId, callback) {
+    var callbackId = addCallback(callback);
+    worker.postMessage(['getPattern', callbackId, patternId]);
+  }
 
   function addCallback (callback) {
     callbacksCounter++;
@@ -77,7 +81,8 @@ define('dispatcher', ['play-note'], function (playNote){
     play: play,
     stop: stop,
     setTempo: setTempo,
-    init: init
+    init: init,
+    getPattern: getPattern
   };
 
 });

@@ -67,11 +67,10 @@ function updateNote (data) {
   var noteId = data[2];
   var currentPattern = currentTrack.getPattern(patternId);
 
+  var currentLine = currentPattern.lines[lineId]
+  currentLine.updateVolume(noteId);
 
-  var currentNote = currentPattern.lines[lineId].notes[noteId];
-  changeNoteVolume(currentNote);
-
-  return currentNote.volume;
+  return currentPattern.lines[lineId].notes[noteId].volume;
 
 }
 
@@ -100,6 +99,12 @@ function setTempo (newTempo) {
   tempo = newTempo;
   if (currentTrack && currentTrack.isPlaying) currentTrack.shiftNextPattern();
   return tempo;
+}
+
+function getPattern (data) {
+  console.log(data);
+  var patternId = data[0]
+  return currentTrack.getPattern(patternId);
 }
 
 function getDispatcher () {
@@ -140,6 +145,9 @@ function getDispatcher () {
         break;
       case "init":
         fn = initWorker;
+        break;
+      case "getPattern":
+        fn = getPattern;
         break;
       default:
         break;

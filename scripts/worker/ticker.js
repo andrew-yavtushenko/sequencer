@@ -31,7 +31,8 @@ function getTicker () {
     currentTrack.isPlaying = true;
     inProgress = true;
     startTime = timing.current() + 0.005;
-    intervalId = setInterval(schedule, 0);
+    schedule();
+    intervalId = setInterval(schedule, 1);
   }
 
   return {
