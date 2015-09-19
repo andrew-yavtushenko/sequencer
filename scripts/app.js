@@ -23,14 +23,6 @@ define('app', [
   var currentTrack = null;
   var trackId;
 
-  $("#meh button").on('click', function () {
-    window.unlock('#meh');
-  })
-
-  window.showMeh = function () {
-    $("#meh").show();
-  }
-
 
   buffers.loadAll(function () {
     var loadedBuffers = buffers.get();
@@ -145,8 +137,15 @@ define('app', [
     // tracks.push(currentTrack);
   });
 
+
+  $("#new-pattern-form .create").on('click.unlock', function () {
+    window.unlock(function () {
+      $("#new-pattern-form .create").off('.unlock');
+    })
+  });
+
+
   $("#new-pattern-form .create").on('click', function (event) {
-    window.unlock();
     var newTrackBeat = parseInt.call(this, $("#new-pattern-form #beat").val());
     var newTrackNoteValue = parseInt.call(this, $("#new-pattern-form #noteValue").val());
 
