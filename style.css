@@ -92,12 +92,17 @@ ul#track-patterns.patterns {
   background-color: #ccc;
 }
 
-.notes li[data-note-volume='0.6'] {
+
+.notes li[data-note-volume='0.33'] {
+  background-color: #fdcd91;
+}
+
+.notes li[data-note-volume='0.66'] {
   background-color: #faa740;
 }
 
 .notes li[data-note-volume='1'] {
-  background-color: #ee6453;
+  background-color: #ee442f;
 }
 
 .notes li[data-is-on='true'] {
