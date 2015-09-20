@@ -1,7 +1,7 @@
+var Ticker;
 
-function getTicker () {
+function initTicker () {
   var intervalId;
-  var timeoutId;
   var startTime;
   var currentTime;
   var currentTrack;
@@ -11,11 +11,10 @@ function getTicker () {
   function schedule() {
     currentTime = timing.current();
 
-    // The sequence starts at startTime, so normalize currentTime so that it's 0 at the start of the sequence.
     currentTime -= startTime;
-    var result = currentTrack.play(currentTime, startTime);
+    var timeToDrop = currentTrack.play(currentTime, startTime);
 
-    if (!result) startTime = timing.current();
+    if (timeToDrop) startTime = timing.current();
   }
 
   function stop (track) {
@@ -35,10 +34,12 @@ function getTicker () {
     startTime = timing.current();
     intervalId = setInterval(schedule, 0);
   }
+  if (!Ticker) {
+    Ticker = {
+      play: play,
+      stop: stop
+    };
+  }
 
-  return {
-    play: play,
-    stop: stop
-  };
-
+  return Ticker;
 }

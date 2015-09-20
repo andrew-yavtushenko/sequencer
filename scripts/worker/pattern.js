@@ -40,20 +40,22 @@ Pattern.prototype.check = function(currentTime) {
   var result;
   for (var i = 0, il = this.lines.length; i < il; i++) {
     result = this.lines[i].check(currentTime, this.id, i);
-    if (i === 0) this.isPlaying = result;
+    if (i === 0) this.isStopped = result;
   }
-  return this.isPlaying;
+  return this.isStopped;
 };
 
 Pattern.prototype.start = function() {
-  this.isPlaying = true;
-  for (var i = 0, il = this.lines.length; i < il; i++) {
-    this.lines[i].start();
+  if (this.isStopped) {
+    this.isStopped = false;
+    for (var i = 0, il = this.lines.length; i < il; i++) {
+      this.lines[i].start();
+    }
   }
 };
 
 Pattern.prototype.stop = function() {
-  this.isPlaying = false;
+  this.isStopped = true;
   for (var i = 0, il = this.lines.length; i < il; i++) {
     this.lines[i].stop();
   }

@@ -3,7 +3,7 @@ function Line (notes) {
   this.notes = notes;
   this._noteTime = 0.0;
   this._rhythmIndex = 0;
-  this._isPlaying = false;
+  this._isStoped = true;
 }
 
 Line.prototype.updateVolume = function(noteIdx) {
@@ -27,12 +27,12 @@ Line.prototype.reset = function() {
 
 Line.prototype.start = function() {
   this._noteTime = 0;
-  this._isPlaying = true;
+  this._isStoped = false;
 };
 
 Line.prototype.stop = function(num) {
   this._rhythmIndex = 0;
-  this._isPlaying = false;
+  this._isStoped = true;
 };
 
 Line.prototype._scheduleNextNote = function () {
@@ -49,7 +49,7 @@ Line.prototype.check = function (currentTime, patternId, lineId) {
   if (this._noteTime <= currentTime + this._threshold) {
     var currentNoteIndex = this._rhythmIndex;
     this._scheduleNextNote();
-    if (this._isPlaying) play(this.notes[currentNoteIndex].bufferIdx, this.notes[currentNoteIndex].volume, patternId, lineId, currentNoteIndex);
+    if (!this._isStoped) play(this.notes[currentNoteIndex].bufferIdx, this.notes[currentNoteIndex].volume, patternId, lineId, currentNoteIndex);
   }
-  return this._isPlaying;
+  return this._isStoped;
 };

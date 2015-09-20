@@ -1,7 +1,6 @@
-var Ticker = getTicker();
-
 var tracks = [];
 var currentTrack;
+var dispatherIsInitialized = false;
 
 function changeNoteVolume(note) {
   if (note.volume === 0) {
@@ -106,7 +105,11 @@ function getPattern (data) {
   return currentTrack.getPattern(patternId);
 }
 
-function getDispatcher () {
+function initDispatcher () {
+
+  if (dispatherIsInitialized) return;
+
+  dispatherIsInitialized = true;
 
   onmessage = parseMessage;
 

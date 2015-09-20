@@ -70,13 +70,13 @@ Track.prototype.advancePattern = function(currentPattern) {
 Track.prototype.play = function(currentTime) {
   var currentPattern = this.patterns[this.patternIndex];
 
-  if (!currentPattern.isPlaying) currentPattern.start();
+  currentPattern.start();
 
-  var currentPatternIsPlaying = currentPattern.check(currentTime);
+  var currentPatternIsStoped = currentPattern.check(currentTime);
 
-  if (!currentPatternIsPlaying) this.advancePattern(currentPattern);
+  if (currentPatternIsStoped) this.advancePattern(currentPattern);
 
-  return currentPatternIsPlaying;
+  return currentPatternIsStoped;
 };
 
 Track.prototype.deletePattern = function(patternId) {

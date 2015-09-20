@@ -10,7 +10,8 @@ importScripts(
   './uuid.js'
 );
 
-var dispatcher = getDispatcher();
+initTicker();
+initDispatcher();
 
 function initWorker() {
   return true;
