@@ -32,7 +32,7 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
 
   function loadBuffers (callback) {
     _.each(availableSamples, function (sample) {
-      buffer[sample] = {};
+      buffers[sample] = {};
 
       loadSample('./sounds/'+ sample +'.wav', function (buffer) {
         buffers[sample] = buffer;
