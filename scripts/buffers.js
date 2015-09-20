@@ -8,6 +8,7 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
     'tick-high': 'tick-high'
   };
   var buffers = {};
+  var loadedBuffers = {};
 
   function loadSample (url, callback) {
 
@@ -30,15 +31,21 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
     request.send();
   }
 
+  function compileBuffers (buffers) {
+    _.each(availableSamples, function (sampleName) {
+      loadedBuffers[sampleName] = buffers[sampleName];
+    })
+  }
+
   function loadBuffers (callback) {
     _.each(availableSamples, function (sample) {
-      buffers[sample] = {};
 
       loadSample('./sounds/'+ sample +'.wav', function (buffer) {
         buffers[sample] = buffer;
 
         if (areLoaded()) {
-          callback(buffers);
+          compileBuffers(buffers);
+          callback(loadedBuffers);
         }
       });
     });
@@ -49,7 +56,7 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
   }
 
   return {
-    get: function () { return buffers; },
+    get: function () { return loadedBuffers; },
     loadAll: loadBuffers,
     areLoaded: areLoaded
   };
