@@ -3,9 +3,9 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
     'hihat':'hihat',
     'snare':'snare',
     'kick':'kick',
-    'tick-low': 'tick-low',
-    'tick-med': 'tick-med',
-    'tick-high': 'tick-high'
+    'metronome-low': 'metronome-low',
+    'metronome-med': 'metronome-med',
+    'metronome-high': 'metronome-high'
   };
   var buffers = {};
   var loadedBuffers = {};
@@ -32,9 +32,14 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
   }
 
   function compileBuffers (buffers) {
-    _.each(availableSamples, function (sampleName) {
-      loadedBuffers[sampleName] = buffers[sampleName];
-    })
+    _.reduce(availableSamples, function(result, sampleName){
+      if (sampleName.match(/metronome-/gi)) {
+        result['metronome'] = 'metronome';
+      } else {
+        result[sampleName] = buffers[sampleName];
+      }
+      return result;
+    }, loadedBuffers)
   }
 
   function loadBuffers (callback) {
@@ -57,6 +62,7 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
 
   return {
     get: function () { return loadedBuffers; },
+    getRaw: function () { return buffers; },
     loadAll: loadBuffers,
     areLoaded: areLoaded
   };

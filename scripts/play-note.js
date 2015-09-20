@@ -21,7 +21,19 @@ define('play-note', ['context', 'buffers', 'blink'], function (context, buffers,
   function play (bufferId, gain, patternId, lineId, noteId) {
     blink(patternId, lineId, noteId, gain);
     var voice = context.createBufferSource();
-    voice.buffer = buffers.get()[bufferId];
+
+    if (bufferId.match(/metronome/gi)) {
+      if (gain === 0.33) {
+        voice.buffer = buffers.getRaw()['metronome-low'];
+      } else if (gain === 0.66) {
+        voice.buffer = buffers.getRaw()['metronome-med'];
+      } else {
+        voice.buffer = buffers.getRaw()['metronome-high'];
+      }
+      gain = 1;
+    } else {
+      voice.buffer = buffers.get()[bufferId];
+    }
 
     // Connect to dry mix
     var dryGainNode = context.createGain();
@@ -35,7 +47,6 @@ define('play-note', ['context', 'buffers', 'blink'], function (context, buffers,
     // wetGainNode.gain.value = gain * effectDryMix; FF doesn't work correctly with sendGain
     voice.connect(wetGainNode);
     wetGainNode.connect(convolver);
-
 
     if (!voice.start) {
       voice.start = voice.noteOn;
