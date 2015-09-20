@@ -15,8 +15,6 @@ define('app', [
     dispatcher,
     settings
   ) {
-  window.tempo = tempo;
-  // tempo.set(120);
   var isLocked = true;
   var isPlaying = false;
   var tracks = [];
@@ -33,11 +31,6 @@ define('app', [
     dispatcher.init(function (message, result) {
       $('.preloading').hide();
     });
-    window.buffers = buffers;
-    window.playnote = play;
-    window.playnoteMeh = function (buffer, sendGain, volume) {
-      playnote(buffer, sendGain, volume, 1, 0);
-    };
   });
 
   function recalculatePatternListIndex () {
@@ -60,6 +53,8 @@ define('app', [
     if (!isPlaying) {
       dispatcher.play(trackId, function () {
         isPlaying = true;
+        $("#start").hide();
+        $("#stop").show();
         // console.profile('machine');
       });
     }
@@ -71,6 +66,8 @@ define('app', [
     if (isPlaying) {
       dispatcher.stop(trackId, function (){
         isPlaying = false;
+        $("#start").show();
+        $("#stop").hide();
         // console.profileEnd('machine');
       });
     }
@@ -268,6 +265,7 @@ define('app', [
 
       $('.pattern-lines', patternDom).append(newLineDom);
       $('.play-buttons').show();
+      $("#stop").hide();
     });
     event.preventDefault();
     event.stopPropagation();

@@ -4,7 +4,15 @@
 html, body {
   height: 100%;
 }
-
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -34px;
+}
+.play-buttons, .push {
+  height: 34px;
+}
 body {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 300;
@@ -171,20 +179,20 @@ ul#track-patterns.patterns,
 
 .play-buttons {
   display: none;
-  margin-left: 20px;
-  margin-top: 1.6em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+.play-buttons .btn {
+  border-radius: 0;
+  width: 100%;
+  display: block;
 }
 
 .play-buttons a {
   display: inline-block;
-
-}
-.clear {
-  clear: both;
-}
-
-h1, .play-buttons {
-  float: left;
 }
 
 .preloading {
