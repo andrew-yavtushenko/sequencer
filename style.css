@@ -143,8 +143,10 @@ ul#track-patterns.patterns {
   font-weight: bold;
 }
 
-.tempo-wrapper {
-  width: 115px;
+.tempo-wrapper h3 {
+  margin: 0;
+  margin-bottom: 5px;
+  padding-right: 10px;
 }
 
 .tempo-wrapper {

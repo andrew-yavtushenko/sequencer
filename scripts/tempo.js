@@ -3,7 +3,6 @@ define('tempo', ['jquery', 'dispatcher'], function ($, dispatcher) {
 
   function updateTempo(message, newTempo) {
     tempo = newTempo;
-    $('.tempo-wrapper span').html(tempo);
   }
 
   return {
