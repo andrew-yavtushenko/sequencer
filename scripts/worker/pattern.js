@@ -7,6 +7,7 @@ function Pattern (properties) {
   this.id = properties.id;
   this.bpm = properties.bpm;
   this.customTempo = false;
+  this.isStopped = true;
   return this;
 }
 
@@ -52,12 +53,6 @@ Pattern.prototype.stop = function() {
   this.isStopped = true;
   for (var i = 0, il = this.lines.length; i < il; i++) {
     this.lines[i].stop();
-  }
-};
-
-Pattern.prototype.reset = function() {
-  for (var i = 0, il = this.lines.length; i < il; i++) {
-    this.lines[i].reset();
   }
 };
 

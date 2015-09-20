@@ -18,17 +18,19 @@ function initTicker () {
   }
 
   function stop (track) {
-    clearInterval(intervalId);
-    currentTrack.isPlaying = false;
+    if (!inProgress) return;
 
+    clearInterval(intervalId);
+    currentTrack.stop();
+    currentTrack.isPlaying = false;
     inProgress = false;
     // console.profileEnd("worker");
   }
 
   function start (track) {
+    if (inProgress) return;
     // console.profile("worker");
     currentTrack = track;
-    currentTrack.reset();
     currentTrack.isPlaying = true;
     inProgress = true;
     startTime = timing.current();

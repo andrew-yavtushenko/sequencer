@@ -20,17 +20,13 @@ Line.prototype.updateVolume = function(noteIdx) {
   this.notes[noteIdx].volume = changeNoteVolume(this.notes[noteIdx].volume)
 };
 
-Line.prototype.reset = function() {
-  this._noteTime = 0;
-  this._rhythmIndex = 0;
-};
-
 Line.prototype.start = function() {
   this._noteTime = 0;
   this._isStoped = false;
 };
 
 Line.prototype.stop = function(num) {
+  this._noteTime = 0;
   this._rhythmIndex = 0;
   this._isStoped = true;
 };

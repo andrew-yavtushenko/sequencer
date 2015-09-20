@@ -98,10 +98,12 @@ Track.prototype.getPattern = function(patternId) {
   return this.patterns.find(findPattern);
 };
 
-Track.prototype.reset = function() {
+Track.prototype.stop = function() {
+  if (!this.isPlaying) return;
+
+  this.isPlaying = true;
   this.patternIndex = 0;
   for (var i = 0, il = this.patterns.length; i < il; i++) {
-    this.patterns[i].reset();
+    this.patterns[i].stop();
   }
-
 };
