@@ -97,7 +97,6 @@ function stopDispatcher (data) {
 
 function setTempo (newTempo) {
   tempo = newTempo;
-  if (currentTrack && currentTrack.isPlaying) currentTrack.shiftNextPattern();
   return tempo;
 }
 

@@ -24,13 +24,8 @@ if (!Array.prototype.find) {
 function Track (name) {
   this.counter = 0;
   this.defaultName = 'New track';
-  // this.currentPattern = null;
   this.isPlaying = false;
   this.patternIndex = 0;
-  this.currentPatternDuration = 0;
-  this.currentTime = 0;
-  this.patternsLength = 0;
-  this.patternTime = 0;
   this.patterns = [];
   this.name = name || this.defaultName + ' ' + this.counter++;
   return this;
@@ -60,76 +55,33 @@ Track.prototype.createPattern = function (beat, noteValue) {
     });
 
     this.patterns.push(newPattern);
-    this.patternsLength++;
     return newPattern;
   }
 };
 
-Track.prototype.getShift = function(newTime) {
-  var relativeTimestamp = (this.patternEllapsedTime / this.currentPatternDuration) | 0;
-  var absoluteTimestampNew = (newTime * relativeTimestamp) | 0;
-  var shift = newTime - absoluteTimestampNew + this.patternEllapsedTime;
-  return shift;
-};
-
-Track.prototype.shiftNextPattern = function() {
-  if (this.patternsLength > 1) {
-    var currentPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
-
-    var currentPattern = this.patterns[currentPatternIndex];
-    var nextPattern = this.patterns[this.patternIndex];
-
-    var newTime = this.getShift(timing.pattern(currentPattern.beat, currentPattern.noteValue));
-    var newPatternTime = this.patternTime - this.currentPatternDuration + newTime;
-
-    this.patternTime = newPatternTime;
-    this.currentPatternDuration = newTime;
-    nextPattern.setTime(newPatternTime, 'shiftNextPattern', nextPattern.id);
-  }
-};
-
-Track.prototype.advancePattern = function() {
-  this.prevPattern.stop();
-  this.currentPatternDuration = timing.pattern(this.currentPattern.beat, this.currentPattern.noteValue);
-
+Track.prototype.advancePattern = function(currentPattern) {
+  currentPattern.stop();
   this.patternIndex++;
-  if (this.patternIndex === this.patternsLength) {
+  if (this.patternIndex === this.patterns.length) {
     this.patternIndex = 0;
   }
-
-  var nextPattern = this.patterns[this.patternIndex];
-
-  this.patternTime += this.currentPatternDuration;
-  nextPattern.setTime(this.patternTime, 'advancePattern', nextPattern.id);
 };
 
-
-
 Track.prototype.play = function(currentTime) {
-  this.currentTime = currentTime;
+  var currentPattern = this.patterns[this.patternIndex];
 
-  this.patternEllapsedTime = currentTime - this.patternTime + this.currentPatternDuration;
+  if (!currentPattern.isPlaying) currentPattern.start();
 
-  if (this.patternTime <= currentTime + 0.200) {
+  var currentPatternIsPlaying = currentPattern.check(currentTime);
 
-    this.prevPatternIndex = this.patternIndex > 0 ? this.patternIndex - 1 : this.patternsLength - 1;
+  if (!currentPatternIsPlaying) this.advancePattern(currentPattern);
 
-    this.prevPattern = this.patterns[this.prevPatternIndex];
-    this.currentPattern = this.patterns[this.patternIndex];
-
-    this.currentPattern.play();
-
-    if (this.patternsLength > 1) {
-      this.advancePattern();
-    }
-  }
-  this.currentPattern.check(currentTime);
+  return currentPatternIsPlaying;
 };
 
 Track.prototype.deletePattern = function(patternId) {
   if (!this.isPlaying) {
     this.patterns.splice(patternId, 1);
-    this.patternsLength--;
     return true;
   } else {
     console.error("you can't modify track while playing");
@@ -147,7 +99,6 @@ Track.prototype.getPattern = function(patternId) {
 };
 
 Track.prototype.reset = function() {
-  this.patternTime = 0.0;
   this.patternIndex = 0;
   for (var i = 0, il = this.patterns.length; i < il; i++) {
     this.patterns[i].reset();

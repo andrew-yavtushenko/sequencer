@@ -13,7 +13,9 @@ function getTicker () {
 
     // The sequence starts at startTime, so normalize currentTime so that it's 0 at the start of the sequence.
     currentTime -= startTime;
-    currentTrack.play(currentTime);
+    var result = currentTrack.play(currentTime, startTime);
+
+    if (!result) startTime = timing.current();
   }
 
   function stop (track) {

@@ -1,15 +1,10 @@
 function Line (notes) {
-  this.threshold = 0.200;
-  this.loopLength = notes.length;
+  this._threshold = 0.200;
   this.notes = notes;
-  this.noteTime = 0.0;
-  this.rhythmIndex = 0;
-  this.isPlaying = false;
+  this._noteTime = 0.0;
+  this._rhythmIndex = 0;
+  this._isPlaying = false;
 }
-
-Line.prototype.updateLoopLength = function (loopLength) {
-  this.loopLength = loopLength;
-};
 
 Line.prototype.updateVolume = function(noteIdx) {
   function changeNoteVolume(volume) {
@@ -25,41 +20,36 @@ Line.prototype.updateVolume = function(noteIdx) {
   this.notes[noteIdx].volume = changeNoteVolume(this.notes[noteIdx].volume)
 };
 
-
-Line.prototype.updateTime = function (time) {
-  this.noteTime += time;
+Line.prototype.reset = function() {
+  this._noteTime = 0;
+  this._rhythmIndex = 0;
 };
 
-Line.prototype.setTime = function (time, source, id) {
-  this.noteTime = time;
-  // if (source) console.log('Line.prototype.setTime', source, this.noteTime, id);
-  // if (source === 'shiftNextPattern') console.log(this.noteTime);
-};
-
-Line.prototype.play = function() {
-  this.isPlaying = true;
+Line.prototype.start = function() {
+  this._noteTime = 0;
+  this._isPlaying = true;
 };
 
 Line.prototype.stop = function(num) {
-  // if (num) console.log(this.currentTime, this.noteTime);
-  this.rhythmIndex = 0;
-  this.isPlaying = false;
+  this._rhythmIndex = 0;
+  this._isPlaying = false;
 };
 
-Line.prototype.advanceNote = function () {
-  this.rhythmIndex++;
-  if (this.rhythmIndex === this.loopLength) {
-    this.stop();
-  }
-  var noteTime = timing.note(this.notes[this.rhythmIndex].value);
-  this.updateTime(noteTime);
+Line.prototype._scheduleNextNote = function () {
+
+  if (this._rhythmIndex === this.notes.length) this.stop();
+
+  var noteTime = timing.note(this.notes[this._rhythmIndex].value);
+  this._noteTime += noteTime;
+
+  this._rhythmIndex++;
 };
 
 Line.prototype.check = function (currentTime, patternId, lineId) {
-  this.currentTime = currentTime;
-  if (this.isPlaying && this.noteTime <= currentTime + this.threshold) {
-    if (this.rhythmIndex === 0) console.log(currentTime, this.noteTime);
-    play(this.notes[this.rhythmIndex].bufferIdx, this.notes[this.rhythmIndex].volume, patternId, lineId, this.rhythmIndex);
-    this.advanceNote();
+  if (this._noteTime <= currentTime + this._threshold) {
+    var currentNoteIndex = this._rhythmIndex;
+    this._scheduleNextNote();
+    if (this._isPlaying) play(this.notes[currentNoteIndex].bufferIdx, this.notes[currentNoteIndex].volume, patternId, lineId, currentNoteIndex);
   }
+  return this._isPlaying;
 };
