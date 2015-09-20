@@ -207,7 +207,8 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-.tempo-wrapper a {
+.track-tempo-wrapper a,
+.pattern-tempo-wrapper a {
   text-decoration: none;
   font-weight: bold;
 }

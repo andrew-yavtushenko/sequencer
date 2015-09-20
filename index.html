@@ -34,15 +34,25 @@
         <a href="#" class="delete-pattern">&times;</a>
       </h5>
       <div class="row">
-        <div class='col'>
+        <div class='col-xs-3'>
           <select class='form-control subDivision' name='subDivision'>
           </select>
         </div>
-        <div class='col'>
+        <div class='col-xs-3'>
           <select class='form-control audio' name='audio'></select>
         </div>
-        <div class='col'>
+        <div class='col-xs-2'>
           <a href="#" class='btn btn-default add-line'>Add Line</a>
+        </div>
+        <div class="col-xs-4 form-inline">
+          <div class="input-group pattern-tempo-wrapper">
+            <a href="#" class="input-group-addon minus">-</a>
+            <input type="number" class="pattern-tempo form-control" min=40 max=300 step=1 value=120 disabled>
+            <a href="#" class="input-group-addon plus">+</a>
+          </div>
+          <div class="input-group">
+            <input type="checkbox" class="custom-pattern-tempo" name="custom-pattern-tempo">
+          </div>
         </div>
       </div>
       <ul class='list-unstyled pattern-lines'>
@@ -65,11 +75,6 @@
             <h3>Bpm:</h3>
           </div>
           <div class="form-group">
-            <div class="input-group">
-              <a href="#" class="input-group-addon minus">-</a>
-              <input id="tempo" type="number" class="form-control" min=40 max=300 step=1 value=120 >
-              <a href="#" class="input-group-addon plus">+</a>
-            </div>
           </div>
         </div>
       </div>
@@ -113,6 +118,13 @@
               <option value="8">8</option>
               <option value="16">16</option>
             </select>
+          </div>
+          <div class="col-xs-2">
+            <div class="input-group track-tempo-wrapper">
+              <a href="#" class="input-group-addon minus">-</a>
+              <input type="number" class="track-tempo form-control" min=40 max=300 step=1 value=120 >
+              <a href="#" class="input-group-addon plus">+</a>
+            </div>
           </div>
           <div class="col-xs-2">
             <a href="#" class="btn btn-default create">Add pattern</a>

@@ -3,12 +3,12 @@ var wrapper = {
     var name = data[0];
     var newTrack = new Track(name);
     tracks.push(newTrack);
-    var trackId = tracks.length - 1;
-    currentTrack = tracks[trackId];
-    return {
-      name: newTrack.name,
-      id: trackId
-    };
+
+    currentTrack = tracks.find(function (track) {
+      return track.id === newTrack.id
+    });
+
+    return newTrack;
   },
 
   createPattern: function (data) {
@@ -20,7 +20,8 @@ var wrapper = {
         id: newPattern.id,
         beat: newPattern.beat,
         noteValue: newPattern.noteValue,
-        availableSubDivisions: newPattern.availableSubDivisions
+        availableSubDivisions: newPattern.availableSubDivisions,
+        trackId: currentTrack.id
       };
     } else {
       return false;
@@ -75,9 +76,25 @@ var wrapper = {
     Ticker.stop(currentTrack);
   },
 
-  tempo: function (newTempo) {
-    tempo = newTempo;
+  releaseCustomTempo: function (data) {
+    trackId = data[0];
+    patternId = data[1];
+    currentTrack.releaseCustomTempo(patternId);
     return tempo;
+  },
+
+  customTempo: function (data) {
+    tempo = data[0];
+    trackId = data[1];
+    patternId = data[2];
+    currentTrack.setCustomTempo(tempo, patternId);
+    return tempo;
+  },
+
+  tempo: function (data) {
+    tempo = data[0];
+    trackId = data[1];
+    return currentTrack.setTempo(tempo);
   },
 
   getPattern: function (data) {

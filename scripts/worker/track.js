@@ -2,6 +2,7 @@ var defaultTrackName = "New track";
 var trackCounter = 0;
 
 function Track (name) {
+  this.bpm = 120;
   this.counter = 0;
   this.isPlaying = false;
   this.id = UUIDjs.create().hex;
@@ -13,6 +14,22 @@ function Track (name) {
 }
 Track.prototype.editName = function (newName) {
   this.name = newName;
+};
+
+Track.prototype.releaseCustomTempo = function (patternId) {
+  this.getPattern(patternId).releaseCustomTempo(this.bpm);
+}
+
+Track.prototype.setCustomTempo = function (tempo, patternId) {
+  this.getPattern(patternId).setCustomTempo(tempo);
+}
+
+Track.prototype.setTempo = function(tempo) {
+  var result = {};
+  for (var i = 0; i < this.patterns.length; i++) {
+    result[this.patterns[i].id] = this.patterns[i].setTempo(tempo);
+  }
+  return result;
 };
 
 Track.prototype.createPattern = function (beat, noteValue) {
@@ -32,7 +49,8 @@ Track.prototype.createPattern = function (beat, noteValue) {
       currentSubDivision: availableSubDivisions[0],
       beat: beat,
       noteValue: noteValue,
-      id: UUIDjs.create().hex
+      id: UUIDjs.create().hex,
+      bpm: this.bpm
     });
 
     this.patterns.push(newPattern);

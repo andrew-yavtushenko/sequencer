@@ -39,9 +39,19 @@ define('dispatcher', ['play-note'], function (playNote){
     worker.postMessage(['stop', callbackId, trackId]);
   }
 
-  function setTempo (tempo, callback) {
+  function setTrackTempo (tempo, trackId, callback) {
     var callbackId = addCallback(callback);
-    worker.postMessage(['tempo', callbackId, tempo]);
+    worker.postMessage(['tempo', callbackId, tempo, trackId]);
+  }
+
+  function setPatternTempo (tempo, trackId, patternId, callback) {
+    var callbackId = addCallback(callback);
+    worker.postMessage(['customTempo', callbackId, tempo, trackId, patternId]);
+  }
+
+  function releaseCustomTempo (trackId, patternId, callback) {
+    var callbackId = addCallback(callback);
+    worker.postMessage(['releaseCustomTempo', callbackId, trackId, patternId]);
   }
 
   function init(callback) {
@@ -80,9 +90,11 @@ define('dispatcher', ['play-note'], function (playNote){
     deletePattern: deletePattern,
     play: play,
     stop: stop,
-    setTempo: setTempo,
+    setPatternTempo: setPatternTempo,
+    setTrackTempo: setTrackTempo,
     init: init,
-    getPattern: getPattern
+    getPattern: getPattern,
+    releaseCustomTempo: releaseCustomTempo
   };
 
 });

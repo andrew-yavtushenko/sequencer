@@ -16,7 +16,7 @@ define('app', [
     settings
   ) {
   window.tempo = tempo;
-  tempo.set(120);
+  // tempo.set(120);
   var isLocked = true;
   var isPlaying = false;
   var tracks = [];
@@ -122,12 +122,64 @@ define('app', [
   $(document).on('click', '#start', startTrack);
   $(document).on('click', '#stop', stopTrack);
 
-  $("#tempo").on("change", function(){
-    tempo.set(parseInt.call(this, this.value));
+  $("#track-patterns").on("change", ".custom-pattern-tempo", function () {
+    var that = this;
+    if (this.checked) {
+      tempo.setPatternTempo(currentTrack.bpm, currentTrack.id, this.dataset.patternId, function (message, result) {
+        $("#track-patterns >li[data-pattern-id=" + that.dataset.patternId + "] .pattern-tempo").removeAttr("disabled");
+      });
+    } else {
+      tempo.releaseCustomTempo(currentTrack.id, this.dataset.patternId, function (message, result) {
+        $("#track-patterns >li[data-pattern-id=" + that.dataset.patternId + "] .pattern-tempo").attr("disabled", "disabled");
+        $("#track-patterns .pattern-tempo[data-pattern-id="+ that.dataset.patternId +"]").val(currentTrack.bpm);
+      });
+    }
   });
 
-  $('.tempo-wrapper a').on('click', function (event) {
-    var tempo = parseInt.call(this, $("#tempo").val());
+  $(document).on("change", ".pattern-tempo", function(){
+    var newTempo = parseInt.call(this, this.value);
+    var that = this;
+    tempo.setPatternTempo(newTempo, currentTrack.id, this.dataset.patternId, function (message, result) {
+      this.value = newTempo;
+    });
+  });
+
+
+
+  $(".track-tempo").on("change", function(){
+    // console.log(this.dataset.trackId);
+    var newTempo = parseInt.call(this, this.value);
+    tempo.setTrackTempo(newTempo, this.dataset.trackId, function (message, result) {
+      currentTrack.bpm = newTempo;
+      for (var patternId in result) {
+        if (result[patternId]) {
+          $("#track-patterns .pattern-tempo[data-pattern-id="+ patternId +"]").val(newTempo);
+        }
+      }
+    });
+  });
+
+  $(document).on('click', '.pattern-tempo-wrapper', function (event) {
+    var tempoInput = $(this).parent().find('input[type="number"]');
+    var newTempo = parseInt.call(this, tempoInput.val());
+
+    if (!tempoInput.attr("disabled")) {
+      if ($(this).hasClass('minus')) {
+        newTempo -= 1;
+      } else {
+        newTempo += 1;
+      }
+      tempoInput.val(newTempo);
+      tempoInput.trigger("change");
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  });
+
+  $('.track-tempo-wrapper a').on('click', function (event) {
+    var tempo = parseInt.call(this, $(".track-tempo").val());
 
     if ($(this).hasClass('minus')) {
       tempo -= 1;
@@ -135,8 +187,8 @@ define('app', [
       tempo += 1;
     }
 
-    $("#tempo").val(tempo);
-    $("#tempo").trigger("change");
+    $(".track-tempo").val(tempo);
+    $(".track-tempo").trigger("change");
     event.preventDefault();
     event.stopPropagation();
     return false;
@@ -146,11 +198,11 @@ define('app', [
     var trackName = $("#new-track-form .track-name").val();
     // currentTrack = new Track($("#new-track-form .track-name").val());
     dispatcher.createTrack(trackName, function (message, track) {
-      trackId = track.id;
+      currentTrack = track;
+      $("#current-track .track-tempo").attr('data-track-id', track.id)
       $("#current-track > h3").html(track.name);
       $("#current-track").show();
     });
-    // tracks.push(currentTrack);
   });
 
 
@@ -174,8 +226,10 @@ define('app', [
       newPatternDom.attr('data-pattern-id', newPattern.id);
       $('.delete-pattern', newPatternDom).attr('data-pattern-id', newPattern.id);
 
-      for (var key in newPattern.availableSubDivisions) {
+      $('.pattern-tempo', newPatternDom).attr('data-pattern-id', newPattern.id);
+      $('.custom-pattern-tempo', newPatternDom).attr('data-pattern-id', newPattern.id);
 
+      for (var key in newPattern.availableSubDivisions) {
         var subDivisionVal = newPattern.availableSubDivisions[key];
         $('.subDivision', newPatternDom).append("<option value='" + subDivisionVal + "'>" + settings.subDivisionNames[subDivisionVal] + "</option>");
       }

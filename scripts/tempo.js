@@ -6,9 +6,14 @@ define('tempo', ['jquery', 'dispatcher'], function ($, dispatcher) {
   }
 
   return {
-    set: function (newTempo) {
-      console.log(newTempo);
-      dispatcher.setTempo(newTempo, updateTempo);
+    setTrackTempo: function (newTempo, trackId, callback) {
+      dispatcher.setTrackTempo(newTempo, trackId, callback);
+    },
+    setPatternTempo: function (newTempo, trackId, patternId, callback) {
+      dispatcher.setPatternTempo(newTempo, trackId, patternId, callback);
+    },
+    releaseCustomTempo: function (trackId, patternId, callback) {
+      dispatcher.releaseCustomTempo(trackId, patternId, callback);
     },
     get: function () {
       return tempo;
