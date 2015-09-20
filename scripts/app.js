@@ -225,6 +225,7 @@ define('app', [
       $('.add-line', newPatternDom).attr('data-pattern-id', newPattern.id);
       newPatternDom.attr('data-pattern-id', newPattern.id);
       $('.delete-pattern', newPatternDom).attr('data-pattern-id', newPattern.id);
+      $('.pattern-tempo', newPatternDom).val(newPattern.bpm);
 
       $('.pattern-tempo', newPatternDom).attr('data-pattern-id', newPattern.id);
       $('.custom-pattern-tempo', newPatternDom).attr('data-pattern-id', newPattern.id);

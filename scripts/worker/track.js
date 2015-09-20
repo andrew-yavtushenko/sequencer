@@ -25,6 +25,7 @@ Track.prototype.setCustomTempo = function (tempo, patternId) {
 }
 
 Track.prototype.setTempo = function(tempo) {
+  this.bpm = tempo;
   var result = {};
   for (var i = 0; i < this.patterns.length; i++) {
     result[this.patterns[i].id] = this.patterns[i].setTempo(tempo);

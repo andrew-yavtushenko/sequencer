@@ -16,13 +16,7 @@ var wrapper = {
     var noteValue = data[1];
     var newPattern = currentTrack.createPattern(beat, noteValue);
     if (newPattern) {
-      return {
-        id: newPattern.id,
-        beat: newPattern.beat,
-        noteValue: newPattern.noteValue,
-        availableSubDivisions: newPattern.availableSubDivisions,
-        trackId: currentTrack.id
-      };
+      return newPattern;
     } else {
       return false;
     }
