@@ -1,5 +1,7 @@
 var tempo = 120;
 
+console.log(!!performance);
+
 var time = !!performance ? performance : Date;
 
 function getNow () {
