@@ -1,6 +1,6 @@
 var tempo = 120;
 
-console.log(!!performance);
+var performance = performance;
 
 var time = !!performance ? performance : Date;
 
