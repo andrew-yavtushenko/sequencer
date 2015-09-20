@@ -8,10 +8,10 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -34px;
+  margin: 0 auto -60px;
 }
 .play-buttons, .push {
-  height: 34px;
+  height: 60px;
 }
 body {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -189,11 +189,16 @@ ul#track-patterns.patterns,
   border-radius: 0;
   width: 100%;
   display: block;
+  line-height: 60px;
+  height: 60px;
+  cursor: pointer;
+  vertical-align: middle;
 }
 
-.play-buttons a {
-  display: inline-block;
+.play-buttons .btn .fa {
+  vertical-align: -4px;
 }
+
 
 .preloading {
   position: absolute;
