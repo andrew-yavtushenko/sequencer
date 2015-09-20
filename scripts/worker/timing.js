@@ -1,6 +1,6 @@
 var tempo = 120;
 
-var time = performance || Date;
+var time = performance ? performance : Date;
 
 function getNow () {
   return time.now() | 0;
