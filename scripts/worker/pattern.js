@@ -22,7 +22,7 @@ Pattern.prototype.setCustomTempo = function(tempo) {
 
 Pattern.prototype.setTempo = function(tempo) {
   var isSet = true;
-  if (!this.customTempo) {
+  if (this.customTempo === false) {
     this.bpm = tempo;
   } else {
     isSet = false;

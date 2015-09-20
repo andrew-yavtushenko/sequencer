@@ -35,7 +35,7 @@ Line.prototype.stop = function(num) {
   this._isStoped = true;
 };
 
-Line.prototype._scheduleNextNote = function () {
+Line.prototype._scheduleNextNote = function (tempo) {
 
   if (this._rhythmIndex === this.notes.length) this.stop();
 
@@ -47,6 +47,7 @@ Line.prototype._scheduleNextNote = function () {
 
 Line.prototype.check = function (currentTime, tempo, patternId, lineId) {
   if (this._noteTime <= currentTime + this._threshold) {
+    console.log(tempo);
     var currentNoteIndex = this._rhythmIndex;
     this._scheduleNextNote(tempo);
     if (!this._isStoped) play(this.notes[currentNoteIndex].bufferIdx, this.notes[currentNoteIndex].volume, patternId, lineId, currentNoteIndex);

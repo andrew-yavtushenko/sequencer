@@ -1,5 +1,3 @@
-var tempo = 120;
-
 var performance = this.performance;
 
 var time = !!performance ? performance : Date;
