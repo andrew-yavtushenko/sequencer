@@ -143,8 +143,8 @@ ul#track-patterns.patterns {
   font-weight: bold;
 }
 
-input[type=range] {
-  width: 240px;
+.tempo-wrapper {
+  width: 115px;
 }
 
 .tempo-wrapper {
@@ -198,3 +198,14 @@ h1, .play-buttons {
   background-repeat: no-repeat;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.tempo-wrapper a {
+  text-decoration: none;
+  font-weight: bold;
+}

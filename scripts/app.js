@@ -126,6 +126,22 @@ define('app', [
     tempo.set(parseInt.call(this, this.value));
   });
 
+  $('.tempo-wrapper a').on('click', function (event) {
+    var tempo = parseInt.call(this, $("#tempo").val());
+
+    if ($(this).hasClass('minus')) {
+      tempo -= 1;
+    } else {
+      tempo += 1;
+    }
+
+    $("#tempo").val(tempo);
+    $("#tempo").trigger("change");
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  });
+
   $("#new-track-form .btn").on('click', function (event) {
     var trackName = $("#new-track-form .track-name").val();
     // currentTrack = new Track($("#new-track-form .track-name").val());

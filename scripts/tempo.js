@@ -8,6 +8,7 @@ define('tempo', ['jquery', 'dispatcher'], function ($, dispatcher) {
 
   return {
     set: function (newTempo) {
+      console.log(newTempo);
       dispatcher.setTempo(newTempo, updateTempo);
     },
     get: function () {

@@ -1,4 +1,5 @@
 importScripts(
+  './utils.js',
   './timing.js',
   './settings.js',
   './play.js',
@@ -7,6 +8,7 @@ importScripts(
   './track.js',
   './ticker.js',
   './dispatcher.js',
+  './wrapper.js',
   './uuid.js'
 );
 

@@ -59,11 +59,15 @@
         <a href="#" id="stop" class="btn btn-danger">stop</a>
       </div>
       <div class="clear"></div>
-      <div class="tempo-wrapper">
+      <div>
         <h3>Bpm:
           <span></span>
         </h3>
-        <input id="tempo" type='range' min=40 max=300 step=2 value=120 />
+        <div class="input-group tempo-wrapper">
+          <a href="#" class="input-group-addon minus">-</a>
+          <input id="tempo" type="number" class="form-control" min=40 max=300 step=1 value=120 >
+          <a href="#" class="input-group-addon plus">+</a>
+        </div>
       </div>
     </div>
       <div class="row" id="new-track-form">

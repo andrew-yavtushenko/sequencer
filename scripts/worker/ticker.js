@@ -25,7 +25,7 @@ function initTicker () {
     // console.profileEnd("worker");
   }
 
-  function play (track) {
+  function start (track) {
     // console.profile("worker");
     currentTrack = track;
     currentTrack.reset();
@@ -36,7 +36,7 @@ function initTicker () {
   }
   if (!Ticker) {
     Ticker = {
-      play: play,
+      start: start,
       stop: stop
     };
   }

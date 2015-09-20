@@ -1,33 +1,14 @@
-if (!Array.prototype.find) {
-  Array.prototype.find = function(predicate) {
-    if (this == null) {
-      throw new TypeError('Array.prototype.find called on null or undefined');
-    }
-    if (typeof predicate !== 'function') {
-      throw new TypeError('predicate must be a function');
-    }
-    var list = Object(this);
-    var length = list.length >>> 0;
-    var thisArg = arguments[1];
-    var value;
-
-    for (var i = 0; i < length; i++) {
-      value = list[i];
-      if (predicate.call(thisArg, value, i, list)) {
-        return value;
-      }
-    }
-    return undefined;
-  };
-}
+var defaultTrackName = "New track";
+var trackCounter = 0;
 
 function Track (name) {
   this.counter = 0;
-  this.defaultName = 'New track';
   this.isPlaying = false;
+  this.id = UUIDjs.create().hex;
   this.patternIndex = 0;
   this.patterns = [];
-  this.name = name || this.defaultName + ' ' + this.counter++;
+  this.name = name || defaultTrackName + ' ' + trackCounter++;
+
   return this;
 }
 Track.prototype.editName = function (newName) {
