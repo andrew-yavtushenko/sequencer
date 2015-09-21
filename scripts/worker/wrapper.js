@@ -55,7 +55,8 @@ var wrapper = {
     var patternId = data[0];
     if (currentTrack.deletePattern(patternId)) {
       return {
-        patternsLength: currentTrack.patterns.length
+        patternsLength: currentTrack.patterns.length,
+        patternId: patternId
       };
     } else {
       return false;

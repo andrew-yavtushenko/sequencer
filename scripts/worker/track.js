@@ -81,7 +81,9 @@ Track.prototype.play = function(currentTime) {
 
 Track.prototype.deletePattern = function(patternId) {
   if (!this.isPlaying) {
-    this.patterns.splice(patternId, 1);
+    var thisPattern = this.getPattern(patternId);
+    idx = this.patterns.indexOf(thisPattern);
+    this.patterns.splice(idx, 1);
     return true;
   } else {
     console.error("you can't modify track while playing");

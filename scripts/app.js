@@ -98,14 +98,21 @@ define('app', [
   });
 
   $(document).on('click', '.delete-pattern', function (event) {
-    var patternId = $(this).data('patternId');
+    var patternId = this.dataset.patternId;
 
-    dispatcher.deletePattern(patternId, function (message, result) {
-      if (result) {
-        var patternDom = $('#track-patterns li[data-pattern-id=' + patternId + ']');
-        patternDom.remove();
+    dispatcher.deletePattern(patternId, function (message, response) {
+      if (response) {
+        $('#track-patterns li[data-pattern-id=' + response.patternId + ']').remove();
+        var patternIndex;
+
+        _.each(currentTrack.patterns, function (pattern, num) {
+          if (pattern.id === patternId) patternIndex = num;
+        });
+
+        currentTrack.patterns.splice(patternIndex, 1);
+
         recalculatePatternListIndex();
-        if (result.patternsLength === 0) {
+        if (response.patternsLength === 0) {
           $('.play-buttons').hide();
           $("#track-patterns").hide();
         }
@@ -217,6 +224,8 @@ define('app', [
     dispatcher.createPattern(newTrackBeat, newTrackNoteValue, function(message, newPattern) {
       if (!newPattern) return;
       var newPatternDom = $(".pattern-template > li").clone();
+
+      currentTrack.patterns.push(newPattern);
 
       $('.pattern-configuration', newPatternDom).html(newPattern.beat + "/" + newPattern.noteValue);
       $('.add-line', newPatternDom).attr('data-pattern-id', newPattern.id);
