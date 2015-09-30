@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     connect: {
       options: {
-        port: 9000,
+        port: 5000,
         hostname: 'localhost',
         livereload: LIVERELOAD_PORT
       },

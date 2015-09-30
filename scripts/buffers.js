@@ -1,11 +1,12 @@
 define('buffers', ['lodash.min', 'context'], function (_, context) {
   var availableSamples = {
-    'hihat':'hihat',
+    'hat':'hat',
+    'meh': 'meh',
     'snare':'snare',
-    'kick':'kick'
-    // 'metronome-low': 'metronome-low',
-    // 'metronome-med': 'metronome-med',
-    // 'metronome-high': 'metronome-high'
+    'kick':'kick',
+    'metronome-low': 'metronome-low',
+    'metronome-med': 'metronome-med',
+    'metronome-high': 'metronome-high'
   };
   var buffers = {};
   var loadedBuffers = {};
@@ -16,14 +17,17 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
     request.open("GET", url, true);
     request.responseType = "arraybuffer";
 
+
     var kit = this;
 
-    request.onload = function() {
+    request.onloadend = function() {
+      
+      var audioData = request.response;
       context.decodeAudioData(
-        request.response,
+        audioData,
         callback,
         function(buffer) {
-            console.log("Error decoding drum samples!");
+          console.log("Error decoding drum samples!");
         }
       );
     };
