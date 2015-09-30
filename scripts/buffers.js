@@ -3,10 +3,10 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
     'hat':'hat',
     'meh': 'meh',
     'snare':'snare',
-    'kick':'kick',
-    'metronome-low': 'metronome-low',
-    'metronome-med': 'metronome-med',
-    'metronome-high': 'metronome-high'
+    'kick':'kick'
+    // 'metronome-low': 'metronome-low',
+    // 'metronome-med': 'metronome-med',
+    // 'metronome-high': 'metronome-high'
   };
   var buffers = {};
   var loadedBuffers = {};
