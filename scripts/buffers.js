@@ -1,6 +1,7 @@
 define('buffers', ['lodash.min', 'context'], function (_, context) {
   var availableSamples = {
     'hat'            : 'hat',
+    'mutedhat'       : 'mutedhat',
     'openhat'        : 'openhat',
     'snare'          : 'snare',
     'kick'           : 'kick',
