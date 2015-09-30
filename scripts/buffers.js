@@ -2,10 +2,10 @@ define('buffers', ['lodash.min', 'context'], function (_, context) {
   var availableSamples = {
     'hihat':'hihat',
     'snare':'snare',
-    'kick':'kick',
-    'metronome-low': 'metronome-low',
-    'metronome-med': 'metronome-med',
-    'metronome-high': 'metronome-high'
+    'kick':'kick'
+    // 'metronome-low': 'metronome-low',
+    // 'metronome-med': 'metronome-med',
+    // 'metronome-high': 'metronome-high'
   };
   var buffers = {};
   var loadedBuffers = {};
