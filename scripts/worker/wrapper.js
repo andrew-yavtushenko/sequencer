@@ -32,11 +32,10 @@ var wrapper = {
     var lineId = currentPattern.lines.length - 1;
     var newLine = currentPattern.lines[lineId];
 
-    return {
-      id: lineId,
-      patternId: patternId,
-      notes: newLine.notes
-    };
+    newLine.patternId = patternId;
+    newLine.id = lineId;
+
+    return newLine;
   },
 
   updateNote: function (data) {

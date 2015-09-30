@@ -24,6 +24,7 @@ define('app', [
 
   buffers.loadAll(function () {
     var loadedBuffers = buffers.get();
+    window.buffers = loadedBuffers;
     _.each(loadedBuffers, function (buffer, bufferName) {
       $("select.audio").append("<option value='" + bufferName + "'>" + bufferName + "</option>");
     });
@@ -37,16 +38,6 @@ define('app', [
     $("#track-patterns > li").each(function(num, element) {
       $('.pattern-index', this).html(num+1);
     });
-  }
-
-  function changeNoteVolume(note) {
-    if (note.volume === 0) {
-      note.volume = 0.6;
-    } else if (note.volume === 0.6) {
-      note.volume = 1;
-    } else {
-      note.volume = 0;
-    }
   }
 
   function startTrack (event) {
@@ -269,6 +260,7 @@ define('app', [
         noteDom.attr('data-note-id', i);
         noteDom.attr('data-line-id', newLine.id);
         noteDom.attr('data-pattern-id', newLine.patternId);
+        $('.notes', newLineDom).attr('text-buffer', newLine.bufferIdx)
         $('.notes', newLineDom).append(noteDom);
       }
 

@@ -1,58 +1,51 @@
 define('play-note', ['context', 'buffers', 'blink'], function (context, buffers, blink) {
 
-  var effectDryMix = 1;
-  var masterGainNode;
-  var finalMixNode;
-  var convolver;
-  var effectLevelNode;
+  function play (buffer, gain, duration, psh) {
+    var noteDuration = duration / 1000;
+    var source = context.createBufferSource();
+    var gainNode = context.createGain();
 
-  finalMixNode = context.destination;
-  masterGainNode = context.createGain();
-  masterGainNode.gain.value = 0.7; // reduce overall volume to avoid clipping
-  masterGainNode.connect(finalMixNode);
-  effectLevelNode = context.createGain();
-  effectLevelNode.gain.value = 1.0; // effect level slider controls this
-  effectLevelNode.connect(masterGainNode);
+    source.buffer = buffer;
 
-  // Create convolver for effect
-  convolver = context.createConvolver();
-  convolver.connect(effectLevelNode);
+    gainNode.gain.value = gain;
+    source.connect(gainNode);
 
-  function play (bufferId, gain, patternId, lineId, noteId) {
+    gainNode.connect(context.destination);
+
+    var ratio = noteDuration / buffer.duration
+
+    if (!source.start) {
+      source.start = source.noteOn;
+    }
+    source.start(0);
+    if (psh) {
+      gainNode.gain.setTargetAtTime(0, context.currentTime + buffer.duration * ratio, 0.1);
+    }
+  };
+
+  window.play = play;
+
+  function playNote (bufferId, gain, patternId, lineId, noteId, duration) {
     blink(patternId, lineId, noteId, gain);
-    var voice = context.createBufferSource();
+    var source = context.createBufferSource();
+    var buffer;
+
+    var psh = bufferId.match(/open/gi);
 
     if (bufferId.match(/metronome/gi)) {
       if (gain === 0.33) {
-        voice.buffer = buffers.getRaw()['metronome-low'];
+        buffer = buffers.getRaw()['metronome-low'];
       } else if (gain === 0.66) {
-        voice.buffer = buffers.getRaw()['metronome-med'];
+        buffer = buffers.getRaw()['metronome-med'];
       } else {
-        voice.buffer = buffers.getRaw()['metronome-high'];
+        buffer = buffers.getRaw()['metronome-high'];
       }
       gain = 1;
     } else {
-      voice.buffer = buffers.get()[bufferId];
+      buffer = buffers.get()[bufferId];
     }
 
-    // Connect to dry mix
-    var dryGainNode = context.createGain();
-    dryGainNode.gain.value = gain * effectDryMix;
-    voice.connect(dryGainNode);
-    dryGainNode.connect(masterGainNode);
-
-    // Connect to wet mix
-    var wetGainNode = context.createGain();
-    wetGainNode.gain.value = gain;
-    // wetGainNode.gain.value = gain * effectDryMix; FF doesn't work correctly with sendGain
-    voice.connect(wetGainNode);
-    wetGainNode.connect(convolver);
-
-    if (!voice.start) {
-      voice.start = voice.noteOn;
-    }
-
-    voice.start(0);
+    play(buffer, gain, duration, psh);
   }
-  return play;
+  return playNote;
 });

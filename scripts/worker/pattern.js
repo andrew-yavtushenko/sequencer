@@ -58,6 +58,6 @@ Pattern.prototype.stop = function() {
 
 Pattern.prototype.addLine = function(bufferIdx, subDivision) {
   var notes = buildLineNotes(this, bufferIdx, subDivision);
-  var newLine = new Line(notes);
+  var newLine = new Line(notes, bufferIdx, subDivision);
   this.lines.push(newLine);
 };
