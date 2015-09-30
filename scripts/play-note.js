@@ -19,7 +19,7 @@ define('play-note', ['context', 'buffers', 'blink'], function (context, buffers,
     }
     source.start(0);
     if (psh) {
-      gainNode.gain.setTargetAtTime(0, context.currentTime + buffer.duration * ratio, 0.1);
+      gainNode.gain.setTargetAtTime(0, context.currentTime + buffer.duration * ratio, 0.05);
     }
   };
 
