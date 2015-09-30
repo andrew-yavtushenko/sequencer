@@ -30,7 +30,7 @@ define('play-note', ['context', 'buffers', 'blink'], function (context, buffers,
     var source = context.createBufferSource();
     var buffer;
 
-    var psh = bufferId.match(/open/gi);
+    var psh = bufferId.match(/muted/gi);
 
     if (bufferId.match(/metronome/gi)) {
       if (gain === 0.33) {
