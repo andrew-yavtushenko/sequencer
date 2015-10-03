@@ -44,8 +44,8 @@ define('app', [
     if (!isPlaying) {
       dispatcher.play(trackId, function () {
         isPlaying = true;
-        $("#start").hide();
-        $("#stop").show();
+        $("#start").toggle();
+        $("#stop").toggle();
         // console.profile('machine');
       });
     }
@@ -57,8 +57,8 @@ define('app', [
     if (isPlaying) {
       dispatcher.stop(trackId, function (){
         isPlaying = false;
-        $("#start").show();
-        $("#stop").hide();
+        $("#start").toggle();
+        $("#stop").toggle();
         // console.profileEnd('machine');
       });
     }
