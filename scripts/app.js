@@ -104,7 +104,7 @@ define('app', [
 
         recalculatePatternListIndex();
         if (response.patternsLength === 0) {
-          $('.play-buttons').hide();
+          $('.play-buttons').removeClass('visible');
           $("#track-patterns").hide();
         }
       }
@@ -265,7 +265,7 @@ define('app', [
       }
 
       $('.pattern-lines', patternDom).append(newLineDom);
-      $('.play-buttons').show();
+      $('.play-buttons').addClass('visible');
       $("#stop").hide();
     });
     event.preventDefault();

@@ -50,17 +50,14 @@
         <a href="#" class="delete-pattern">&times;</a>
       </h5>
       <div class="row controls">
-        <div class='col-xs-2'>
+        <div class='col-sm-3'>
           <select class='form-control subDivision' name='subDivision'>
           </select>
         </div>
-        <div class='col-xs-2'>
+        <div class='col-sm-3'>
           <select class='form-control audio' name='audio'></select>
         </div>
-        <div class='col-xs-1'>
-          <a href="#" class='btn btn-default add-line'>Add Line</a>
-        </div>
-        <div class="col-xs-2 form-inline">
+        <div class="col-sm-3 form-inline">
           <div class="input-group pattern-tempo-wrapper">
             <a href="#" class="input-group-addon minus">-</a>
             <input type="number" class="pattern-tempo form-control" min=40 max=300 step=1 value=120 disabled>
@@ -69,6 +66,9 @@
               <input type="checkbox" class="custom-pattern-tempo" name="custom-pattern-tempo">
             </div>
           </div>
+        </div>
+        <div class='col-sm-1'>
+          <a href="#" class='btn btn-default add-line'>Add Line</a>
         </div>
       </div>
       <ul class='list-unstyled pattern-lines'>
@@ -83,17 +83,17 @@
         </h1>
       </div>
       <div class="row" id="new-track-form">
-        <div class='col-xs-2'>
+        <div class='col-sm-3'>
           <input class='form-control track-name' type="text" placeholder='New track name'>
         </div>
-        <div class='col-xs-2'>
+        <div class='col-sm-3'>
           <a href="#" class='btn btn-default'>Create track</a>
         </div>
       </div>
       <div id="current-track">
         <h3></h3>
         <form id="new-pattern-form" class='form-inline row'>
-          <div class='col-xs-2'>
+          <div class='col-sm-3'>
             <select class='form-control' name='beat' id='beat'>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -113,7 +113,7 @@
               <option value="16">16</option>
             </select>  
           </div>
-          <div class='col-xs-2'>
+          <div class='col-sm-3'>
             <select class='form-control' name='noteValue' id='noteValue'>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -122,14 +122,14 @@
               <option value="16">16</option>
             </select>
           </div>
-          <div class="col-xs-2">
+          <div class="col-sm-3">
             <div class="input-group track-tempo-wrapper">
               <a href="#" class="input-group-addon minus">-</a>
               <input type="number" class="track-tempo form-control" min=40 max=300 step=1 value=120 >
               <a href="#" class="input-group-addon plus">+</a>
             </div>
           </div>
-          <div class="col-xs-2">
+          <div class="col-sm-3">
             <a href="#" class="btn btn-default create">Add pattern</a>
           </div>
         </form>
