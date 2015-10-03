@@ -119,6 +119,8 @@ define('app', [
 
   $("#track-patterns").on("change", ".custom-pattern-tempo", function () {
     var that = this;
+    console.log(this.checked);
+    console.log(that.dataset.patternId);
     if (this.checked) {
       tempo.setPatternTempo(currentTrack.bpm, currentTrack.id, this.dataset.patternId, function (message, result) {
         $("#track-patterns >li[data-pattern-id=" + that.dataset.patternId + "] .pattern-tempo").removeAttr("disabled");
@@ -154,8 +156,8 @@ define('app', [
     });
   });
 
-  $(document).on('click', '.pattern-tempo-wrapper', function (event) {
-    var tempoInput = $(this).parent().find('input[type="number"]');
+  $(document).on('click', '.pattern-tempo-wrapper input[type="number"]', function (event) {
+    var tempoInput = $(this);
     var newTempo = parseInt.call(this, tempoInput.val());
 
     if (!tempoInput.attr("disabled")) {
@@ -168,8 +170,6 @@ define('app', [
       tempoInput.trigger("change");
     }
 
-    event.preventDefault();
-    event.stopPropagation();
     return false;
   });
 
