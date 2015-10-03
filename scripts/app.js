@@ -44,8 +44,6 @@ define('app', [
     if (!isPlaying) {
       dispatcher.play(trackId, function () {
         isPlaying = true;
-        $("#start").toggle();
-        $("#stop").toggle();
         $('.play-buttons').addClass('playing');
         // console.profile('machine');
       });
