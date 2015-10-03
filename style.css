@@ -239,6 +239,22 @@ ul#track-patterns.patterns,
   vertical-align: -4px;
 }
 
+.play-buttons #start {
+  display: block;
+}
+
+.play-buttons #stop {
+  display: none;
+}
+
+.play-buttons.playing #start {
+  display: none;
+}
+
+.play-buttons.playing #stop {
+  display: block;
+}
+
 
 .preloading {
   position: absolute;
