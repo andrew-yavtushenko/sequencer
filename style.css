@@ -5,10 +5,12 @@ html, body {
   height: 100%;
 }
 .wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -60px;
+  position: absolute;
+  overflow: auto;
+  top: 0;
+  bottom: 60px;
+  left: 0;
+  right: 0;
 }
 .play-buttons, .push {
   height: 60px;
