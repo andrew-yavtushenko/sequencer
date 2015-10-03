@@ -264,7 +264,6 @@ define('app', [
 
       $('.pattern-lines', patternDom).append(newLineDom);
       $('.play-buttons').addClass('visible');
-      $("#stop").hide();
     });
     event.preventDefault();
     event.stopPropagation();
