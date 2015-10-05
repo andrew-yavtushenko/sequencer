@@ -154,8 +154,8 @@ define('app', [
     });
   });
 
-  $(document).on('click', '.pattern-tempo-wrapper input[type="number"]', function (event) {
-    var tempoInput = $(this);
+  $(document).on('click', '.pattern-tempo-wrapper a', function (event) {
+    var tempoInput = $(this).parent().find('input');
     var newTempo = parseInt.call(this, tempoInput.val());
 
     if (!tempoInput.attr("disabled")) {
